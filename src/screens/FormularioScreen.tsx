@@ -1,7 +1,8 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Botao } from '../components/Botao';
+import { Chip } from '../components/Chip';
 import { Input } from '../components/Input';
 import { atualizarLivro, buscarLivro, criarLivro } from '../services/livroService';
 import { LivroDados, StatusLeitura } from '../types/livro';
@@ -115,13 +116,7 @@ export function FormularioScreen({ navigation, route }: Props) {
       <Text style={styles.label}>Status</Text>
       <View style={styles.opcoes}>
         {OPCOES_STATUS.map((opcao) => (
-          <Pressable
-            key={opcao}
-            style={[styles.opcao, status === opcao && styles.opcaoSelecionada]}
-            onPress={() => setStatus(opcao)}
-          >
-            <Text style={status === opcao ? styles.textoSelecionado : undefined}>{opcao}</Text>
-          </Pressable>
+          <Chip key={opcao} texto={opcao} selecionado={status === opcao} onPress={() => setStatus(opcao)} />
         ))}
       </View>
 
@@ -143,8 +138,5 @@ const styles = StyleSheet.create({
   centro: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   label: { marginBottom: 6 },
   opcoes: { flexDirection: 'row', gap: 8, marginBottom: 10 },
-  opcao: { borderWidth: 1, borderColor: '#ccc', borderRadius: 4, paddingVertical: 8, paddingHorizontal: 12 },
-  opcaoSelecionada: { backgroundColor: '#333', borderColor: '#333' },
-  textoSelecionado: { color: '#fff' },
   erro: { color: 'red', marginBottom: 10 },
 });
